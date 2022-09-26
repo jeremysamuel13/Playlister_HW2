@@ -1,5 +1,7 @@
 import React from "react";
 
+const YOUTUBE_PREFIX = "https://www.youtube.com/watch?v="
+
 export default class SongCard extends React.Component {
     constructor(props) {
         super(props);
@@ -44,7 +46,7 @@ export default class SongCard extends React.Component {
         targetId = targetId.substring(target.id.indexOf("-") + 1);
         let sourceId = event.dataTransfer.getData("song");
         sourceId = sourceId.substring(sourceId.indexOf("-") + 1);
-        
+
         this.setState(prevState => ({
             isDragging: false,
             draggedTo: false
@@ -59,7 +61,7 @@ export default class SongCard extends React.Component {
     }
 
     render() {
-        const { song } = this.props;
+        const { song, index } = this.props;
         let num = this.getItemNum();
         console.log("num: " + num);
         let itemClass = "playlister-song";
@@ -67,7 +69,7 @@ export default class SongCard extends React.Component {
             itemClass = "playlister-song-dragged-to";
         }
         return (
-            <div
+            song && <div
                 id={'song-' + num}
                 className={itemClass}
                 onDragStart={this.handleDragStart}
@@ -77,8 +79,8 @@ export default class SongCard extends React.Component {
                 onDrop={this.handleDrop}
                 draggable="true"
             >
-                {song.title} by {song.artist}
-            </div>
+                {index}. <a target="_blank" rel="noreferrer" href={`${YOUTUBE_PREFIX}${song.youTubeId}`}>{song.title} by {song.artist}</a> <button className="delete-song-button">&#x2715;</button>
+            </div >
         )
     }
 }

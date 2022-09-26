@@ -28,12 +28,12 @@ function loadListsFromJSON(jsonFilePath) {
       // HELP US DEAL WITH THE LISTS
       localStorage.setItem("playlister-data", JSON.stringify(
         {
-          "nextKey" : 3,
-          "counter" : 3,
-          "keyNamePairs" : [
-            {"key": "0", "name": "Space Rock"},
-            {"key": "1", "name": "Proggy Pop"}, 
-            {"key": "2", "name": "Don't be Rude"}
+          "nextKey": 3,
+          "counter": 3,
+          "keyNamePairs": [
+            { "key": "0", "name": "Space Rock" },
+            { "key": "1", "name": "Proggy Pop" },
+            { "key": "2", "name": "Don't be Rude" }
           ]
         }));
       launch();
