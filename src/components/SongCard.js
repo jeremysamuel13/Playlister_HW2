@@ -79,7 +79,11 @@ export default class SongCard extends React.Component {
                 onDrop={this.handleDrop}
                 draggable="true"
             >
-                {index}. <a target="_blank" rel="noreferrer" href={`${YOUTUBE_PREFIX}${song.youTubeId}`}>{song.title} by {song.artist}</a> <button className="delete-song-button">&#x2715;</button>
+                <div className="song-card-text">{index}.
+
+                    <a target="_blank" rel="noreferrer" href={`${YOUTUBE_PREFIX}${song.youTubeId}`}>{song.title} by {song.artist}</a></div>
+
+                <button className="delete-song-button">&#x2715;</button>
             </div >
         )
     }
