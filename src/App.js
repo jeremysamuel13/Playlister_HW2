@@ -60,7 +60,7 @@ class App extends React.Component {
 
     }
     keyDownHandler = (e) => {
-        if (e.ctrlKey || e.metaKey) {
+        if (e.ctrlKey || e.metaKey) { //option for both ctrl and meta(for mac)
             if (e.key.toUpperCase() === 'Z') {
                 this.undo()
             } else if (e.key.toUpperCase() === 'Y') {
@@ -382,11 +382,13 @@ class App extends React.Component {
         let canUndo = !modalOpen && this.tps.hasTransactionToUndo();
         let canRedo = !modalOpen && this.tps.hasTransactionToRedo();
         let canClose = !modalOpen && this.state.currentList !== null;
+        let canAddList = !modalOpen && this.state.currentList === null;
         return (
             <div id="app-root">
                 <Banner />
                 <SidebarHeading
                     createNewListCallback={this.createNewList}
+                    canAdd={canAddList}
                 />
                 <SidebarList
                     currentList={this.state.currentList}

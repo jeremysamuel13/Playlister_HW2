@@ -6,14 +6,21 @@ export default class SidebarHeading extends React.Component {
         createNewListCallback();
     };
     render() {
+        const { canAdd } = this.props
+        let addClass = "toolbar-button";
+        if (!canAdd) addClass += " disabled";
+
         return (
             <div id="sidebar-heading">
-                <input 
-                    type="button" 
-                    id="add-list-button" 
-                    className="toolbar-button" 
+                <input
+                    type="button"
+                    id="add-list-button"
+                    className={addClass}
                     onClick={this.handleClick}
-                    value="+" />
+                    value="+"
+                    disabled={!canAdd}
+
+                />
                 Your Playlists
             </div>
         );

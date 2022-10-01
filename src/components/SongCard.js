@@ -84,7 +84,7 @@ export default class SongCard extends React.Component {
 
                     <a target="_blank" rel="noreferrer" href={`${YOUTUBE_PREFIX}${song.youTubeId}`}>{song.title} by {song.artist}</a></div>
 
-                <button className="delete-song-button" onClick={onDelete}>&#x2715;</button>
+                <button className="delete-song-button" id={`delete-song-${index}`} onClick={onDelete}>&#x2715;</button>
             </div >
         )
     }
