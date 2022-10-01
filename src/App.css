@@ -423,3 +423,11 @@ span {
     transform: rotate(0deg);
   }
 }
+
+
+/* Foolproof Design */
+.disabled {
+  background-color: transparent;
+  pointer-events: none;
+  opacity: 0.5;
+}

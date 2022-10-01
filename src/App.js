@@ -51,6 +51,7 @@ class App extends React.Component {
             sessionData: loadedSessionData,
             isEditModalVisible: false,
             isDeleteSongModalVisible: false,
+            isDeleteListModalVisible: false,
             markedEditSong: null,
             markedEditIndex: null,
             markedDeleteSongIndex: null,
@@ -214,6 +215,7 @@ class App extends React.Component {
             // AN AFTER EFFECT IS THAT WE NEED TO MAKE SURE
             // THE TRANSACTION STACK IS CLEARED
             this.tps.clearAllTransactions();
+            this.forceUpdate() // wont update can* variables in render, so we need to force update
         });
     }
     // THIS FUNCTION BEGINS THE PROCESS OF CLOSING THE CURRENT LIST
@@ -226,6 +228,7 @@ class App extends React.Component {
             // AN AFTER EFFECT IS THAT WE NEED TO MAKE SURE
             // THE TRANSACTION STACK IS CLEARED
             this.tps.clearAllTransactions();
+            this.forceUpdate() // wont update can* variables in render, so we need to force update
         });
     }
     setStateWithUpdatedList(list) {
@@ -294,7 +297,7 @@ class App extends React.Component {
     }
     // THIS FUNCTION ADDS A MoveSong_Transaction TO THE TRANSACTION STACK
     addMoveSongTransaction = (start, end) => {
-        if (start == end) { return } //avoid case where we move a song to itself
+        if (start === end) { return } //avoid case where we move a song to itself
         let transaction = new MoveSong_Transaction(this, start, end);
         this.tps.addTransaction(transaction);
     }
@@ -328,14 +331,16 @@ class App extends React.Component {
     }
     // THIS FUNCTION SHOWS THE MODAL FOR PROMPTING THE USER
     // TO SEE IF THEY REALLY WANT TO DELETE THE LIST
-    showDeleteListModal() {
+    showDeleteListModal = () => {
         let modal = document.getElementById("delete-list-modal");
         modal.classList.add("is-visible");
+        this.setState({ isDeleteListModalVisible: true })
     }
     // THIS FUNCTION IS FOR HIDING THE MODAL
-    hideDeleteListModal() {
+    hideDeleteListModal = () => {
         let modal = document.getElementById("delete-list-modal");
         modal.classList.remove("is-visible");
+        this.setState({ isDeleteListModalVisible: false })
     }
     addSong = () => {
         let transaction = new AddSong_Transaction(this, DEFAULT_SONG);
@@ -372,10 +377,11 @@ class App extends React.Component {
         this.setState({ markedDeleteSongIndex: index, markedDeleteSong: song }, () => this.showDeleteSongModal())
     }
     render() {
-        let canAddSong = this.state.currentList !== null;
-        let canUndo = this.tps.hasTransactionToUndo();
-        let canRedo = this.tps.hasTransactionToRedo();
-        let canClose = this.state.currentList !== null;
+        let modalOpen = this.state.isDeleteSongModalVisible || this.state.isEditModalVisible || this.state.isDeleteListModalVisible;
+        let canAddSong = !modalOpen && this.state.currentList !== null;
+        let canUndo = !modalOpen && this.tps.hasTransactionToUndo();
+        let canRedo = !modalOpen && this.tps.hasTransactionToRedo();
+        let canClose = !modalOpen && this.state.currentList !== null;
         return (
             <div id="app-root">
                 <Banner />
