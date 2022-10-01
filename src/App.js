@@ -56,6 +56,24 @@ class App extends React.Component {
             markedDeleteSongIndex: null,
             markedDeleteSong: null
         }
+
+    }
+    keyDownHandler = (e) => {
+        if (e.ctrlKey || e.metaKey) {
+            if (e.key.toUpperCase() === 'Z') {
+                this.undo()
+            } else if (e.key.toUpperCase() === 'Y') {
+                this.redo()
+            }
+        }
+    }
+    componentDidMount = () => {
+        document.addEventListener('keydown', this.keyDownHandler)
+
+    }
+    componentWillUnmount = () => {
+        document.removeEventListener('keydown', this.keyDownHandler)
+
     }
     sortKeyNamePairsByName = (keyNamePairs) => {
         keyNamePairs.sort((keyPair1, keyPair2) => {
