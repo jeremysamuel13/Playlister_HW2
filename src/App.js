@@ -63,8 +63,10 @@ class App extends React.Component {
         if (e.ctrlKey || e.metaKey) { //option for both ctrl and meta(for mac)
             if (e.key.toUpperCase() === 'Z') {
                 this.undo()
+                this.forceUpdate()
             } else if (e.key.toUpperCase() === 'Y') {
                 this.redo()
+                this.forceUpdate()
             }
         }
     }
