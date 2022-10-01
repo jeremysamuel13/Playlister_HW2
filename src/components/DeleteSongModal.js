@@ -18,7 +18,7 @@ const DeleteSongModal = ({ song, index, deleteSongCallback, cancelDeleteSongCall
                 </div>
                 <div className="modal-center">
                     <div className="modal-center-content">
-                        Are you sure you wish to permanently remove {title} from the
+                        Are you sure you wish to permanently remove <b>{title}</b> from the
                         playlist?
                     </div>
                 </div>
