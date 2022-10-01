@@ -12,7 +12,7 @@ export default class RemoveSong_Transaction extends jsTPS_Transaction {
 
     undoTransaction() {
         if (this.removedSong) {
-            this.model.insertSong(this.index, this.removedSong)
+            this.app.insertSong(this.index, this.removedSong)
         }
     }
 }

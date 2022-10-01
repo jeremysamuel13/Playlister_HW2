@@ -25,6 +25,12 @@ import Statusbar from './components/Statusbar.js';
 import DeleteSongModal from './components/DeleteSongModal';
 import EditSongModal from './components/EditSongModal';
 
+const DEFAULT_SONG = {
+    title: "Untitled",
+    artist: "Unknown",
+    youTubeId: "dQw4w9WgXcQ"
+}
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -238,6 +244,12 @@ class App extends React.Component {
         list.songs.splice(index, 0, song)
         this.setStateWithUpdatedList(list);
     }
+    appendSong = (song) => {
+        let list = this.state.currentList
+        let idx = list.songs.push(song) - 1
+        this.setStateWithUpdatedList(list);
+        return idx;
+    }
     // THIS FUNCTION MOVES A SONG IN THE CURRENT LIST FROM
     // start TO end AND ADJUSTS ALL OTHER ITEMS ACCORDINGLY
     moveSong(start, end) {
@@ -306,8 +318,8 @@ class App extends React.Component {
         let modal = document.getElementById("delete-list-modal");
         modal.classList.remove("is-visible");
     }
-    addSong = (song) => {
-        let transaction = new AddSong_Transaction(this, song);
+    addSong = () => {
+        let transaction = new AddSong_Transaction(this, DEFAULT_SONG);
         this.tps.addTransaction(transaction);
     }
     editSong = (index, song) => {
@@ -366,6 +378,7 @@ class App extends React.Component {
                     undoCallback={this.undo}
                     redoCallback={this.redo}
                     closeCallback={this.closeCurrentList}
+                    addSongCallback={this.addSong}
                 />
                 <PlaylistCards
                     currentList={this.state.currentList}
