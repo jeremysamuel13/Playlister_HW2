@@ -61,7 +61,7 @@ export default class SongCard extends React.Component {
     }
 
     render() {
-        const { song, index } = this.props;
+        const { song, index, onDoubleClick, onDelete } = this.props;
         let num = this.getItemNum();
         console.log("num: " + num);
         let itemClass = "playlister-song";
@@ -77,13 +77,14 @@ export default class SongCard extends React.Component {
                 onDragEnter={this.handleDragEnter}
                 onDragLeave={this.handleDragLeave}
                 onDrop={this.handleDrop}
+                onDoubleClick={onDoubleClick}
                 draggable="true"
             >
                 <div className="song-card-text">{index}.
 
                     <a target="_blank" rel="noreferrer" href={`${YOUTUBE_PREFIX}${song.youTubeId}`}>{song.title} by {song.artist}</a></div>
 
-                <button className="delete-song-button">&#x2715;</button>
+                <button className="delete-song-button" onClick={onDelete}>&#x2715;</button>
             </div >
         )
     }
