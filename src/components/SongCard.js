@@ -43,6 +43,7 @@ export default class SongCard extends React.Component {
         event.preventDefault();
         let target = event.target;
         let targetId = target.id;
+        if (!targetId.startsWith("song-")) { return } //prevents case where program crashes with an undefined target
         targetId = targetId.substring(target.id.indexOf("-") + 1);
         let sourceId = event.dataTransfer.getData("song");
         sourceId = sourceId.substring(sourceId.indexOf("-") + 1);
@@ -63,7 +64,6 @@ export default class SongCard extends React.Component {
     render() {
         const { song, index, onDoubleClick, onDelete } = this.props;
         let num = this.getItemNum();
-        console.log("num: " + num);
         let itemClass = "playlister-song";
         if (this.state.draggedTo) {
             itemClass = "playlister-song-dragged-to";

@@ -9,8 +9,6 @@ export default class EditSong_Transaction extends jsTPS_Transaction {
 
     doTransaction() {
         let oldSong = this.app.getSong(this.index)
-        console.log(this.index)
-        console.log(this.oldSong)
         this.oldSongState = { title: oldSong.title, artist: oldSong.artist, youTubeId: oldSong.youTubeId }
         this.app.setSong(this.index, this.song)
     }
