@@ -258,19 +258,19 @@ class App extends React.Component {
     deleteSong = (index) => {
         let list = this.state.currentList
         let removed = list.songs.splice(index, 1)
-        this.setStateWithUpdatedList(list);
+        this.setStateWithUpdatedList(list); //stores in localstorage
         return removed[0]
     }
 
     insertSong = (index, song) => {
         let list = this.state.currentList
         list.songs.splice(index, 0, song)
-        this.setStateWithUpdatedList(list);
+        this.setStateWithUpdatedList(list); //stores in localstorage
     }
     appendSong = (song) => {
         let list = this.state.currentList
         let idx = list.songs.push(song) - 1
-        this.setStateWithUpdatedList(list);
+        this.setStateWithUpdatedList(list); //stores in localstorage
         return idx;
     }
     // THIS FUNCTION MOVES A SONG IN THE CURRENT LIST FROM
